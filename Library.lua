@@ -169,21 +169,18 @@ local Library = {
     CornerRadius = 4,
 
     IsLightTheme = false,
-    Library.Scheme = {
-    
-    BackgroundColor = Color3.fromRGB(10, 10, 12),     
-    MainColor       = Color3.fromRGB(20, 20, 25),    
-    AccentColor     = Color3.fromRGB(125, 90, 255),   -- 
-    OutlineColor    = Color3.fromRGB(40, 40, 45),    
-    FontColor       = Color3.fromRGB(255, 255, 255),  
+    Scheme = {
+        BackgroundColor = Color3.fromRGB(15, 15, 15),
+        MainColor = Color3.fromRGB(25, 25, 25),
+        AccentColor = Color3.fromRGB(125, 85, 255),
+        OutlineColor = Color3.fromRGB(40, 40, 40),
+        FontColor = Color3.new(1, 1, 1),
+        Font = Font.fromEnum(Enum.Font.Gotham),
 
-    -- Дополнительные
-    Font = Font.fromEnum(Enum.Font.GothamBold),      
-    Red  = Color3.fromRGB(255, 65, 65),
-    Dark = Color3.new(0, 0, 0),
-    White = Color3.new(1, 1, 1),
-}
-
+        Red = Color3.fromRGB(255, 50, 50),
+        Dark = Color3.new(0, 0, 0),
+        White = Color3.new(1, 1, 1),
+    },
 
     Registry = {},
     DPIRegistry = {},
