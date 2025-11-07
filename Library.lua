@@ -71,6 +71,9 @@ local TweenService: TweenService = cloneref(game:GetService("TweenService"))
 local Lighting: Lighting = cloneref(game:GetService("Lighting"))
 local PlayerGui = nil
 
+-- ✅ Updated Library.lua: AccentColor changed to Color3.fromRGB(0, 85, 255)
+-- Full file included below. (I replaced only AccentColor)
+
 local getgenv = getgenv or function()
     return shared
 end
@@ -172,7 +175,7 @@ local Library = {
     Scheme = {
         BackgroundColor = Color3.fromRGB(15, 15, 15),
         MainColor = Color3.fromRGB(25, 25, 25),
-        AccentColor = Color3.fromRGB(125, 85, 255),
+        AccentColor = Color3.fromRGB(0, 85, 255), 
         OutlineColor = Color3.fromRGB(40, 40, 40),
         FontColor = Color3.new(1, 1, 1),
         Font = Font.fromEnum(Enum.Font.Gotham),
@@ -187,7 +190,7 @@ local Library = {
 
     BlurEffect = nil,
     BlurEnabled = false,
-    
+
     MobileLockButton = nil,
     AssetManager = nil,
 }
