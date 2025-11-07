@@ -1,3 +1,4 @@
+
 local ThreadFix = setthreadidentity and true or false
 if ThreadFix then
     local success = pcall(function() 
@@ -70,9 +71,6 @@ local Teams: Teams = cloneref(game:GetService("Teams"))
 local TweenService: TweenService = cloneref(game:GetService("TweenService"))
 local Lighting: Lighting = cloneref(game:GetService("Lighting"))
 local PlayerGui = nil
-
--- ✅ Updated Library.lua: AccentColor changed to Color3.fromRGB(0, 85, 255)
--- Full file included below. (I replaced only AccentColor)
 
 local getgenv = getgenv or function()
     return shared
@@ -169,18 +167,18 @@ local Library = {
 
     MinSize = Vector2.new(480, 360),
     DPIScale = 1,
-    CornerRadius = 4,
+    CornerRadius = 12, -- Увеличено для более округлого вида
 
     IsLightTheme = false,
     Scheme = {
-        BackgroundColor = Color3.fromRGB(20, 20, 50),
-        MainColor = Color3.fromRGB(30, 30, 70),
-        AccentColor = Color3.fromRGB(0, 120, 255), 
-        OutlineColor = Color3.fromRGB(50, 50, 100),
-        FontColor = Color3.new(1, 1, 1),
+        BackgroundColor = Color3.fromRGB(20, 20, 30), -- Более темный синеватый фон
+        MainColor = Color3.fromRGB(30, 30, 45), -- Основной цвет
+        AccentColor = Color3.fromRGB(100, 70, 255), -- Акцентный цвет (фиолетовый)
+        OutlineColor = Color3.fromRGB(50, 50, 70), -- Цвет контура
+        FontColor = Color3.new(0.9, 0.9, 1), -- Светлый шрифт
         Font = Font.fromEnum(Enum.Font.Gotham),
 
-        Red = Color3.fromRGB(255, 50, 50),
+        Red = Color3.fromRGB(255, 80, 80),
         Dark = Color3.new(0, 0, 0),
         White = Color3.new(1, 1, 1),
     },
@@ -190,7 +188,7 @@ local Library = {
 
     BlurEffect = nil,
     BlurEnabled = false,
-
+    
     MobileLockButton = nil,
     AssetManager = nil,
 }
@@ -1718,10 +1716,10 @@ function Library:AddDraggableButton(Text: string, Func)
         },
     })
     New("UICorner", {
-        CornerRadius = UDim.new(0, Library.CornerRadius - 1),
+        CornerRadius = UDim.new(1, 0), -- Круглая кнопка
         Parent = Button,
     })
-    Library:MakeOutline(Button, Library.CornerRadius, 9)
+    Library:MakeOutline(Button, 1, 9) -- Круглый контур
 
     Table.Button = Button
     Button.MouseButton1Click:Connect(function()
@@ -1733,9 +1731,9 @@ function Library:AddDraggableButton(Text: string, Func)
         local X, Y = Library:GetTextBounds(NewText, Library.Scheme.Font, 16)
 
         Button.Text = NewText
-        Button.Size = UDim2.fromOffset(X * Library.DPIScale * 2, Y * Library.DPIScale * 2)
+        Button.Size = UDim2.fromOffset(math.max(X * Library.DPIScale * 2, 40), math.max(Y * Library.DPIScale * 2, 40)) -- Минимальный размер для круглой кнопки
         Library:UpdateDPI(Button, {
-            Size = UDim2.fromOffset(X * 2, Y * 2),
+            Size = UDim2.fromOffset(math.max(X * 2, 40), math.max(Y * 2, 40)),
         })
     end
     Table:SetText(Text)
@@ -2381,7 +2379,7 @@ do
                 Parent = Holder,
             })
             New("UICorner", {
-                CornerRadius = UDim.new(0, Library.CornerRadius / 2),
+                CornerRadius = UDim.new(1, 0), -- Круглый чекбокс
                 Parent = Checkbox,
             })
             New("UIStroke", {
@@ -2843,6 +2841,10 @@ do
             Text = "",
             Parent = ToggleLabel,
         })
+        New("UICorner", {
+            CornerRadius = UDim.new(1, 0), -- Круглый холдер для цветового пикера
+            Parent = Holder,
+        })
 
         local HolderTransparency = New("ImageLabel", {
             Name = "SoundGroup",
@@ -2905,6 +2907,10 @@ do
             Size = UDim2.fromOffset(200, 200),
             Parent = ColorHolder,
         })
+        New("UICorner", {
+            CornerRadius = UDim.new(0, 8),
+            Parent = SatVipMap,
+        })
 
         local SatVibCursor = New("Frame", {
             Name = "StringValue",
@@ -2927,6 +2933,10 @@ do
             Size = UDim2.fromOffset(16, 200),
             Text = "",
             Parent = ColorHolder,
+        })
+        New("UICorner", {
+            CornerRadius = UDim.new(0, 8),
+            Parent = HueSelector,
         })
         New("UIGradient", {
             Color = ColorSequence.new(HueSequenceTable),
@@ -2955,6 +2965,10 @@ do
                 Size = UDim2.fromOffset(16, 200),
                 TileSize = UDim2.fromOffset(8, 8),
                 Parent = ColorHolder,
+            })
+            New("UICorner", {
+                CornerRadius = UDim.new(0, 8),
+                Parent = TransparencySelector,
             })
 
             TransparencyColor = New("Frame", {
@@ -3008,6 +3022,10 @@ do
             TextSize = 14,
             Parent = InfoHolder,
         })
+        New("UICorner", {
+            CornerRadius = UDim.new(0, 6),
+            Parent = HueBox,
+        })
 
         local RgbBox = New("TextBox", {
             Name = "ProximityPrompt",
@@ -3019,6 +3037,10 @@ do
             Text = "?, ?, ?",
             TextSize = 14,
             Parent = InfoHolder,
+        })
+        New("UICorner", {
+            CornerRadius = UDim.new(0, 6),
+            Parent = RgbBox,
         })
 
         --// Context Menu \\--
@@ -3452,6 +3474,10 @@ do
                 Visible = Button.Visible,
                 Parent = Holder,
             })
+            New("UICorner", {
+                CornerRadius = UDim.new(1, 0), -- Круглая кнопка
+                Parent = Base,
+            })
 
             local Stroke = New("UIStroke", {
                 Color = "OutlineColor",
@@ -3470,6 +3496,7 @@ do
 
                 Button.Tween = TweenService:Create(Button.Base, Library.TweenInfo, {
                     TextTransparency = 0,
+                    BackgroundColor3 = Library.Scheme.AccentColor,
                 })
                 Button.Tween:Play()
             end)
@@ -3480,6 +3507,7 @@ do
 
                 Button.Tween = TweenService:Create(Button.Base, Library.TweenInfo, {
                     TextTransparency = 0.4,
+                    BackgroundColor3 = Library.Scheme.MainColor,
                 })
                 Button.Tween:Play()
             end)
@@ -3726,7 +3754,7 @@ do
             Parent = Button,
         })
         New("UICorner", {
-            CornerRadius = UDim.new(0, Library.CornerRadius / 2),
+            CornerRadius = UDim.new(1, 0), -- Круглый чекбокс
             Parent = Checkbox,
         })
 
@@ -3774,8 +3802,8 @@ do
                 ImageTransparency = Toggle.Value and 0 or 1,
             }):Play()
 
-            Checkbox.BackgroundColor3 = Library.Scheme.MainColor
-            Library.Registry[Checkbox].BackgroundColor3 = "MainColor"
+            Checkbox.BackgroundColor3 = Toggle.Value and Library.Scheme.AccentColor or Library.Scheme.MainColor
+            Library.Registry[Checkbox].BackgroundColor3 = Toggle.Value and "AccentColor" or "MainColor"
         end
 
         function Toggle:OnChanged(Func)
@@ -3928,7 +3956,7 @@ do
             Parent = Button,
         })
         New("UICorner", {
-            CornerRadius = UDim.new(1, 0),
+            CornerRadius = UDim.new(1, 0), -- Круглый переключатель
             Parent = Switch,
         })
         New("UIPadding", {
@@ -4147,6 +4175,10 @@ do
             TextXAlignment = Enum.TextXAlignment.Left,
             Parent = Holder,
         })
+        New("UICorner", {
+            CornerRadius = UDim.new(0, 8), -- Закругленные углы для текстового поля
+            Parent = Box,
+        })
 
         New("UIPadding", {
             PaddingBottom = UDim.new(0, 3),
@@ -4307,6 +4339,10 @@ do
             Text = "",
             Parent = Holder,
         })
+        New("UICorner", {
+            CornerRadius = UDim.new(1, 0), -- Круглый слайдер
+            Parent = Bar,
+        })
 
         local DisplayLabel = New("TextLabel", {
             BackgroundTransparency = 1,
@@ -4332,6 +4368,10 @@ do
             DPIExclude = {
                 Size = true,
             },
+        })
+        New("UICorner", {
+            CornerRadius = UDim.new(1, 0),
+            Parent = Fill,
         })
 
         function Slider:UpdateColors()
@@ -4572,6 +4612,10 @@ do
             TextSize = 14,
             TextXAlignment = Enum.TextXAlignment.Left,
             Parent = Holder,
+        })
+        New("UICorner", {
+            CornerRadius = UDim.new(0, 8), -- Закругленные углы для дропдауна
+            Parent = Display,
         })
 
         New("UIPadding", {
@@ -5028,6 +5072,10 @@ do
             Size = UDim2.fromScale(1, 1),
             Parent = Holder,
         })
+        New("UICorner", {
+            CornerRadius = UDim.new(0, 8),
+            Parent = Box,
+        })
 
         New("UIPadding", {
             PaddingBottom = UDim.new(0, 3),
@@ -5255,6 +5303,10 @@ do
             Size = UDim2.fromScale(1, 1),
             Parent = Holder,
         })
+        New("UICorner", {
+            CornerRadius = UDim.new(0, 8),
+            Parent = Box,
+        })
 
         New("UIPadding", {
             PaddingBottom = UDim.new(0, 3),
@@ -5397,6 +5449,10 @@ do
             Position = UDim2.fromScale(0, 1),
             Size = UDim2.fromScale(1, 1),
             Parent = Holder,
+        })
+        New("UICorner", {
+            CornerRadius = UDim.new(0, 8),
+            Parent = Box,
         })
 
         New("UIPadding", {
@@ -6520,12 +6576,12 @@ function Library:CreateWindow(WindowInfo)
             Visible = not (WindowInfo.DisableSearch or false),
             Parent = RightWrapper,
         })
-        New("UIFlexItem", {
-            FlexMode = Enum.UIFlexMode.Shrink,
+        New("UICorner", {
+            CornerRadius = UDim.new(0, 8), -- Закругленные углы для поиска
             Parent = SearchBox,
         })
-        New("UICorner", {
-            CornerRadius = UDim.new(0, WindowInfo.CornerRadius),
+        New("UIFlexItem", {
+            FlexMode = Enum.UIFlexMode.Shrink,
             Parent = SearchBox,
         })
         New("UIPadding", {
@@ -6845,6 +6901,10 @@ function Library:CreateWindow(WindowInfo)
                 Text = "",
                 Parent = Tabs,
             })
+            New("UICorner", {
+                CornerRadius = UDim.new(0, 8), -- Закругленные углы для кнопок вкладок
+                Parent = TabButton,
+            })
 
             local ButtonPadding = New("UIPadding", {
                 PaddingBottom = UDim.new(0, LayoutState.IsCompact and 7 or 11),
@@ -6964,6 +7024,10 @@ function Library:CreateWindow(WindowInfo)
                 Size = UDim2.fromScale(1, 0),
                 Visible = false,
                 Parent = TabContainer,
+            })
+            New("UICorner", {
+                CornerRadius = UDim.new(0, 8),
+                Parent = WarningBox,
             })
 
             WarningBoxScrollingFrame = New("ScrollingFrame", {
@@ -7323,6 +7387,10 @@ function Library:CreateWindow(WindowInfo)
                     TextTransparency = 0.5,
                     Parent = TabboxButtons,
                 })
+                New("UICorner", {
+                    CornerRadius = UDim.new(0, 6),
+                    Parent = Button,
+                })
 
                 local Line = Library:MakeLine(Button, {
                     AnchorPoint = Vector2.new(0, 1),
@@ -7526,7 +7594,7 @@ function Library:CreateWindow(WindowInfo)
             TabButton = New("TextButton", {
                 BackgroundColor3 = "MainColor",
                 BackgroundTransparency = 1,
-                Size = UDim2.new(40, 40),
+                Size = UDim2.new(1, 0, 0, 40),
                 Text = "",
                 Parent = Tabs,
             })
@@ -7624,6 +7692,10 @@ function Library:CreateWindow(WindowInfo)
                 TextXAlignment = Enum.TextXAlignment.Left,
                 Parent = Holder,
             })
+            New("UICorner", {
+                CornerRadius = UDim.new(0, 8),
+                Parent = Box,
+            })
             New("UIPadding", {
                 PaddingLeft = UDim.new(0, 8),
                 PaddingRight = UDim.new(0, 8),
@@ -7640,6 +7712,10 @@ function Library:CreateWindow(WindowInfo)
                 Text = "Execute",
                 TextSize = 14,
                 Parent = Holder,
+            })
+            New("UICorner", {
+                CornerRadius = UDim.new(0, 8),
+                Parent = Button,
             })
 
             Button.MouseButton1Click:Connect(function()
